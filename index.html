@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CalC By RoM</title>
+    <link rel="shortcut icon" href="./favicon_io/favicon-32x32.png" />
+    <style>
+      .box-shdw{
+        box-shadow: 5px 5px 5px rgb(253 186 116);
+      }
+      .box-shdw-sm{
+        box-shadow: 1.5px 1.5px 5px rgb(253 186 116);
+      }
+      .digit-btn{
+        border: 2px solid rgb(249 115 22);
+        border-radius: 7px;
+        background-color: azure;
+        box-shadow: 0.5px 0.5px 5px rgb(253 186 116);
+      }
+      .digit-btn:hover{
+        scale: 1.02;
+        transition: all 0.2s ease-in;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="h-[100vh] w-full bg-gray-800 p-4">
+        <div class="w-full sm:w-1/2 h-screen pt-8 mx-auto">
+            <div class="w-full sm:w-2/3 bg-gray-500 h-[40rem] mx-auto rounded-lg p-4 border-4 border-orange-500 box-shdw">
+
+                <input type="text" id="display" class="w-full bg-orange-100 rounded-lg px-4 py-8 mb-4 mt-8 font-extrabold text-5xl text-black border-2 border-orange-500 box-shdw-sm">
+
+                <div class="grid grid-rows-6 grid-cols-4 gap-2 mt-6">
+                    <!-- addToDisplay() need one parameter passes as the value when clicked -->
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('+')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">+</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('-')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">-</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('/')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">/</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('*')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">*</button></div>
+
+                    <div class="digit-btn m-2"><button onclick="removeLastCharacter()" type="button" class="font-extrabold text-md text-orange-500 w-full h-full">Del</button></div>
+                    
+                    <div class="digit-btn m-2"><button onclick="calculateSquareRoot()" type="button" class="flex justify-center items-center font-extrabold text-2xl text-orange-500 w-full py-1">
+                      <span><svg class="h-6 w-6 fill-orange-500 stroke-orange-500" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 48 48" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M35.494,0c-0.43,0-0.811,0.273-0.947,0.681L19.734,44.64L9.35,27.482C9.169,27.183,8.844,27,8.494,27h-8v2h7.437 l11.208,18.518C19.321,47.819,19.646,48,19.994,48c0.036,0,0.072-0.002,0.109-0.006c0.387-0.043,0.714-0.306,0.838-0.675L36.213,2 h11.293V0H35.494z"></path> </g> </g></svg></span>
+                      <span>2</span>
+                    </button></div>
+                    <div class="digit-btn m-2"><button onclick="calculateCube()" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">X <sup>3</sup></button></div>
+                    <div class="digit-btn m-2"><button onclick="calculateModulus('%')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">%</button></div>
+
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('7')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">7</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('8')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">8</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('9')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">9</button></div>
+
+                    <!-- clears the display ""[empty] -->
+                    <div class="digit-btn m-2"><button onclick="clearDisplay()" type="button" class="font-extrabold text-md text-orange-500 w-full h-full">CleaR</button></div>
+                    
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('4')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">4</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('5')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">5</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('6')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">6</button></div>
+                    
+                    <!-- calculateValue() calculate current "display.value" including operators -->
+                    <div class="digit-btn m-2 row-span-3"><button onclick="calculateValue()" type="button" class="font-extrabold text-5xl text-orange-500 w-full h-full">=</button></div>
+                    
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('1')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">1</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('2')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">2</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('3')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">3</button></div>
+
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('0')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">0</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('00')" type="button" class="font-extrabold text-2xl text-orange-500 w-full py-1">00</button></div>
+                    <div class="digit-btn m-2"><button onclick="addToDisplay('.')" type="button" class="font-extrabold text-3xl text-orange-500 w-full">.</button></div>
+                </div>
+
+            </div>
+        </div>
+      </div>
+      
+      <script src="./script.js"></script>
+  </body>
+</html>
